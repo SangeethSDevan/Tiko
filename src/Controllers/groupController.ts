@@ -117,3 +117,56 @@ export const deleteGroup=async(req:Request<{id:string}>,res:Response)=>{
         })
     }
 }
+export const getGroupById=async (req:Request,res:Response)=>{
+    const id=req.params.id
+    if(!id){
+        return res.status(400).json({
+            status:"fail",
+            message:"Group id not found!"
+        })
+    }
+    try{
+        const data=await prisma.group.findFirst({
+            where:{
+                groupId:id
+            },
+            select:{
+                groupId:true,
+                groupName:true,
+                description:true,
+                members:{
+                    select:{
+                        userId:true,
+                        userRole:true,
+                        user:{
+                            select:{
+                                username:true,
+                                name:true,
+                                email:true,
+
+                            }
+                        }
+                    }
+                },
+                events:{
+                    select:{
+                        eventId:true,
+                        title:true,
+                        description:true,
+                        eventDate:true,
+                        reccurence:true
+                    }
+                }
+            }
+        })
+        return res.status(200).json({
+            status:"success",
+            data:data
+        })
+    }catch(error){
+        return res.status(400).json({
+            status:"fail",
+            message:error instanceof Error? error.message:"Something went wrong!"
+        })
+    }
+}
