@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tiko Invitation</title>
+  </head>
+  <body style="margin:0; padding:0; font-family: 'Helvetica Neue', Arial, sans-serif; background-color:#f5f6f7;">
+  <table align="center" width="600" cellpadding="0" cellspacing="0" style="background:#ffffff; border:1px solid #e5e7eb; border-radius:6px; overflow:hidden;">
+      <tr>
+        <td style="padding:20px; background:#0f172a; text-align:center;">
+          <h1 style="margin:0; font-size:20px; font-weight:600; color:#ffffff; letter-spacing:0.5px;">
+            Tiko · Invitation
+          </h1>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:28px; font-size:15px; line-height:1.6; color:#1f2937;">
+          <p style="margin:0 0 16px 0;">Hello {{name}},</p>
+          <p style="margin:0 0 24px 0;">
+            You’ve been invited to join the group <strong>{{groupName}}</strong> on <strong>Tiko</strong>.
+          </p>
+          <div style="margin:32px 0; text-align:center;">
+            <a href="{{inviteLink}}"
+               style="display:inline-block; padding:12px 24px; font-size:14px; color:#ffffff; background-color:#0f172a; text-decoration:none; border-radius:4px; font-weight:600;">
+              Join {{groupName}} on Tiko
+            </a>
+          </div>
+          <p style="margin:0; font-size:13px; color:#6b7280;">
+            If the button doesn’t work, copy and paste this link into your browser:
+          </p>
+          <p style="margin:8px 0 0 0; font-size:13px; color:#2563eb; word-break:break-all;">
+            <a href="{{inviteLink}}" style="color:#2563eb; text-decoration:none;">{{inviteLink}}</a>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding:18px; text-align:center; font-size:12px; color:#6b7280; background:#f9fafb; border-top:1px solid #e5e7eb;">
+          <p style="margin:0;">This invitation was sent by {{senderName}} via <strong>Tiko</strong></p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

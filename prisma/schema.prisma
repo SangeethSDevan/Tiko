@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+enum Role {
+  ADMIN
+  LEADER
+  USER
+}
+enum ReccurenceType {
+  NONE
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+model User{
+  userId String @id @default(uuid())
+  name String
+  username String @unique
+  email String @unique
+  password String
+
+  createdGroups Group[] 
+  groups GroupMember[]
+  events Events[]
+  token Token[]
+}
+model Group{
+  groupId String @id @default(uuid())
+  groupName String
+  description String?
+  createdBy String
+  
+  createdByUser User @relation(fields: [createdBy], references: [userId],onDelete: Restrict)
+  members GroupMember[]
+  events Events[]
+}
+model GroupMember{
+  groupId String
+  userId String
+  userRole Role @default(USER)
+
+  group Group @relation(fields: [groupId], references: [groupId],onDelete: Cascade)
+  user User @relation(fields: [userId], references: [userId],onDelete: Cascade)
+
+  @@id([groupId,userId])
+}
+
+model Events{
+  eventId String @id @default(uuid())
+  userId String
+  groupId String?
+  eventDate DateTime
+  ddmm String
+  title String
+  description String
+  reccurence ReccurenceType @default(NONE)
+
+  user User @relation(fields: [userId],references: [userId],onDelete: Cascade)
+  group Group? @relation(fields: [groupId],references: [groupId],onDelete: Cascade)
+}
+model Token{
+  user_id String @id
+  fcm_token String
+  deviceOf User @relation(fields: [user_id],references: [userId])
+}
